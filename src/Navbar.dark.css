@@ -1,0 +1,43 @@
+:root {
+  --nav-bg: #1f2937;
+  --nav-text: #e5e7eb;
+  --nav-accent: #4ade80;
+  --nav-hover: #374151;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--nav-bg);
+  border-bottom: 2px solid var(--nav-accent);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.navbar a {
+  color: var(--nav-text);
+  margin-right: 1.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navbar a:hover {
+  color: var(--nav-accent);
+}
+
+.navbar button {
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  background: var(--nav-accent);
+  border: none;
+  border-radius: 6px;
+  color: var(--nav-bg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.navbar button:hover {
+  background: #22c55e;
+}
