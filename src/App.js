@@ -15,6 +15,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/add-service" element={<ServiceForm />} />
         <Route path="/deploy-contract" element={<DeployContract />} />
       </Routes>
