@@ -234,7 +234,7 @@ function ServiceForm({ addService }) {
     AformData.append("contractAddress", formData.contractAddress);
 
     try {
-      const res = await fetch("http://localhost:5000/api/v1/admin/add-service", {
+      const res = await fetch("https://ethglobal.azurewebsites.net/api/v1/admin/add-service", {
         method: "POST",
         body: AformData,
       });
