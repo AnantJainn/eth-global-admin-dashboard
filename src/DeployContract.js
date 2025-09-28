@@ -554,7 +554,7 @@
 
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import "./DeployContract.css";
+import "./DeployContract.dark.css";
 
 // --- MODIFICATION: Import both EVM and Hedera contract artifacts ---
 // Make sure you rename your existing file to SolarNFT_EVM.json
