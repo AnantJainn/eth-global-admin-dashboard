@@ -145,9 +145,6 @@
 
 // export default ServiceForm;
 
-
-
-
 import React, { useState } from "react";
 // import "./ServiceForm.css";
 // ServiceForm.js
@@ -234,14 +231,17 @@ function ServiceForm({ addService }) {
     AformData.append("contractAddress", formData.contractAddress);
 
     try {
-      const res = await fetch("https://ethglobal.azurewebsites.net/api/v1/admin/add-service", {
-        method: "POST",
-        body: AformData,
-      });
+      const res = await fetch(
+        "https://ethglobal.azurewebsites.net/api/v1/admin/add-service",
+        {
+          method: "POST",
+          body: AformData,
+        }
+      );
 
       const data = await res.json();
       console.log("✅ Service saved:", data);
-      
+
       // Reset form after successful submission
       setFormData({
         image: null,
@@ -260,7 +260,6 @@ function ServiceForm({ addService }) {
         contractAddress: "",
       });
       setImagePreview(null);
-      
     } catch (err) {
       console.error("❌ Error saving service:", err);
     } finally {
@@ -271,7 +270,7 @@ function ServiceForm({ addService }) {
   return (
     <div className="service-form-container">
       <div className="blockchain-pattern"></div>
-      
+
       <form className="service-form" onSubmit={handleSubmit}>
         <div className="form-header">
           <div className="blockchain-icon">⚡</div>
@@ -285,16 +284,20 @@ function ServiceForm({ addService }) {
             <h3>📸 Project Media</h3>
             <div className="image-upload-container">
               <label className="image-upload-label">
-                <input 
-                  type="file" 
-                  name="image" 
+                <input
+                  type="file"
+                  name="image"
                   onChange={handleChange}
                   accept="image/*"
-                  style={{display: 'none'}}
+                  style={{ display: "none" }}
                 />
                 <div className="image-upload-area">
                   {imagePreview ? (
-                    <img src={imagePreview} alt="Preview" className="image-preview" />
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="image-preview"
+                    />
                   ) : (
                     <div className="upload-placeholder">
                       <div className="upload-icon">📷</div>
@@ -477,11 +480,7 @@ function ServiceForm({ addService }) {
         </div>
 
         <div className="form-actions">
-          <button 
-            type="submit" 
-            className="submit-btn"
-            disabled={isSubmitting}
-          >
+          <button type="submit" className="submit-btn" disabled={isSubmitting}>
             {isSubmitting ? (
               <>
                 <div className="spinner"></div>
