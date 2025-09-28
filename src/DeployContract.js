@@ -555,7 +555,7 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import "./DeployContract.dark.css";
-
+import { uploadToFilecoin } from "./uploadToFilecoin";
 // --- MODIFICATION: Import both EVM and Hedera contract artifacts ---
 // Make sure you rename your existing file to SolarNFT_EVM.json
 import EvmSolarNFT from "./SolarNFT_EVM.json";
@@ -602,6 +602,7 @@ function DeployContract() {
   });
 
   const [deployedAddress, setDeployedAddress] = useState("");
+  const [imageLink, setimageLink] = useState("");
   const [isDeploying, setIsDeploying] = useState(false);
   const [txHash, setTxHash] = useState("");
   const [deploymentProgress, setDeploymentProgress] = useState(0);
@@ -737,6 +738,12 @@ function DeployContract() {
       const burnPeriodInYears = ethers.toBigInt(form.burnPeriodInYears || "0");
       const royaltyBps = 500n; // 5%
 
+      console.log(form.baseURI);
+      const baseURI = form.baseURI 
+        ? await uploadToFilecoin(form.baseURI) 
+        : "";
+      setimageLink(baseURI);
+
       setIsDeploying(true);
       setTxHash("");
       setDeployedAddress("");
@@ -756,7 +763,7 @@ function DeployContract() {
         await signer.getAddress(),
         royaltyBps,
         await signer.getAddress(),
-        form.baseURI,
+        baseURI,
         pricePerNFT,
       ];
 
@@ -920,13 +927,11 @@ function DeployContract() {
 
                   <div className="input-group">
                     <label>Base URI</label>
-                    <input
-                      type="text"
-                      name="baseURI"
-                      value={form.baseURI}
-                      onChange={handleChange}
-                      placeholder="ipfs://your-base-uri/"
-                    />
+                            <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setForm({ ...form, baseURI: e.target.files[0] })}
+                  />
                   </div>
                 </div>
               </div>
@@ -1036,6 +1041,29 @@ function DeployContract() {
                       <span className="btn-icon">🔍</span>
                       View on Explorer
                     </a>
+                  </div>
+                </div>
+              </div>
+            )}
+            {deployedAddress && (
+              <div className="deployment-success">
+                <div className="success-header">
+                  <span className="success-icon">✅</span>
+                  <h3>Filecoin base URI</h3>
+                </div>
+                <div className="contract-details">
+                  <div className="contract-address">
+                    <label>Filecoin base URI :</label>
+                    <div className="address-display">
+                      <span className="address-text">{imageLink}</span>
+                      <button
+                        className="copy-btn"
+                        onClick={() => navigator.clipboard.writeText(imageLink)}
+                        title="Copy address"
+                      >
+                        📋
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
